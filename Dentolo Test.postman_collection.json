@@ -1,0 +1,614 @@
+{
+	"info": {
+		"_postman_id": "e10ac6e3-3861-4cda-a00a-95deda7e1349",
+		"name": "Dentolo Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23599647"
+	},
+	"item": [
+		{
+			"name": "Validate User- Authorized user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"/*  OR \r",
+							"pm.test(\" Verify successful POST request\", function () {\r",
+							"  //  pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"}); */\r",
+							"\r",
+							"pm.test(\"Verify success message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify content type header\", function()\r",
+							"{pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\")\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid contract key- unauthorized access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify success message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"fail\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038204\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid user email- unauthorized access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"fail\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com \",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Blank user email- unauthorized access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"fail\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incorrect endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"fail\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validat",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid API key value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Access Denied\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Forbidden\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-KEY",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid API key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Access Denied\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Forbidden\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "X-API-ke",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "275082ed-7dd0-4701-bfc4-86144adb313e",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No API key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify failure message in response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Access Denied\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Forbidden\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"jagtapdakshayani23@gmail.com\",\r\n\"contract_key\": \"V8872038203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://beta7.dentolo-test.de/api/petolo/v1/fressnapf/validate_contract",
+					"protocol": "https",
+					"host": [
+						"beta7",
+						"dentolo-test",
+						"de"
+					],
+					"path": [
+						"api",
+						"petolo",
+						"v1",
+						"fressnapf",
+						"validate_contract"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
